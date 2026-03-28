@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C# estilo Duolingo 😎</title>
+  <title>C# Game Learning 😎</title>
   <style>
     body { font-family: Arial, sans-serif; background:#0f172a; color:#e2e8f0; margin:0; }
     header { background:#1e293b; padding:20px; text-align:center; }
     section { padding:20px; margin:10px; background:#1e293b; border-radius:10px; }
     h1,h2 { color:#38bdf8; }
-    .box { background:#020617; padding:12px; border-radius:8px; margin-top:10px; font-family: monospace; }
+    .box { background:#020617; padding:12px; border-radius:8px; margin-top:10px; font-family: monospace; white-space: pre-wrap; }
     button { margin-top:10px; padding:10px; border:none; border-radius:8px; background:#38bdf8; cursor:pointer; }
     input { padding:8px; border-radius:6px; border:none; margin-top:10px; }
     .feedback { margin-top:10px; font-weight:bold; }
@@ -18,79 +18,131 @@
 <body>
 
 <header>
-  <h1>💻 Aprenda C# jogando</h1>
-  <p>Modo Duolingo ativado 😎🔥</p>
+  <h1>💻 C# estilo Duolingo</h1>
+  <p>Aprenda jogando e ficando brabo 😎🔥</p>
 </header>
 
 <section>
+  <h2>📚 Aula 1 — Console</h2>
+  <p>No C#, usamos <b>Console.WriteLine()</b> pra mostrar algo na tela.</p>
+  <div class="box">Console.WriteLine("Olá mundo");</div>
+</section>
+
+<section>
   <h2>🎯 Desafio 1</h2>
-  <p>Qual comando escreve algo no console?</p>
-  <button onclick="resposta1(true)">Console.WriteLine()</button><br>
-  <button onclick="resposta1(false)">print()</button>
+  <p>Qual comando mostra algo na tela?</p>
+  <button onclick="check(true, 'r1')">Console.WriteLine()</button><br>
+  <button onclick="check(false, 'r1')">print()</button>
   <div id="r1" class="feedback"></div>
 </section>
 
 <section>
+  <h2>📚 Aula 2 — Variáveis</h2>
+  <p>Variável guarda informação.</p>
+  <div class="box">int idade = 16;
+string nome = "Lucas";</div>
+</section>
+
+<section>
   <h2>🎯 Desafio 2</h2>
-  <p>Complete o código para criar uma variável inteira:</p>
-  <div class="box">_____ idade = 16;</div>
-  <input id="input2" placeholder="Digite aqui">
-  <br>
-  <button onclick="verificar2()">Verificar</button>
+  <p>Complete:</p>
+  <div class="box">_____ idade = 10;</div>
+  <input id="d2">
+  <button onclick="inputCheck('d2','int','r2')">Verificar</button>
   <div id="r2" class="feedback"></div>
+</section>
+
+<section>
+  <h2>📚 Aula 3 — Condição</h2>
+  <p>O <b>if</b> serve pra tomar decisões.</p>
+  <div class="box">if (vida <= 0)
+{
+ Console.WriteLine("Game Over");
+}</div>
 </section>
 
 <section>
   <h2>🎯 Desafio 3</h2>
   <p>O que esse código faz?</p>
-  <div class="box">if (vida <= 0)
-{
- Console.WriteLine("Game Over");
-}</div>
-  <button onclick="resposta3(true)">Mostra Game Over quando a vida acaba</button><br>
-  <button onclick="resposta3(false)">Aumenta a vida</button>
+  <button onclick="check(true, 'r3')">Mostra Game Over</button><br>
+  <button onclick="check(false, 'r3')">Aumenta vida</button>
   <div id="r3" class="feedback"></div>
 </section>
 
 <section>
-  <h2>🏆 Sistema de pontos</h2>
+  <h2>📚 Aula 4 — Loop</h2>
+  <p>Loop repete ações.</p>
+  <div class="box">for (int i = 0; i < 3; i++)
+{
+ Console.WriteLine(i);
+}</div>
+</section>
+
+<section>
+  <h2>🎯 Desafio 4</h2>
+  <p>Quantas vezes o loop roda?</p>
+  <button onclick="check(true, 'r4')">3</button><br>
+  <button onclick="check(false, 'r4')">1</button>
+  <div id="r4" class="feedback"></div>
+</section>
+
+<section>
+  <h2>📚 Aula 5 — Jogo</h2>
+  <p>Simulação simples de vida:</p>
+  <div class="box">int vida = 50;
+vida -= 10;</div>
+</section>
+
+<section>
+  <h2>🎯 Desafio 5</h2>
+  <p>Qual será o valor final?</p>
+  <input id="d5">
+  <button onclick="inputCheck('d5','40','r5')">Verificar</button>
+  <div id="r5" class="feedback"></div>
+</section>
+
+<section>
+  <h2>🏆 Progresso</h2>
   <p>Pontos: <span id="pontos">0</span></p>
+  <p>Vidas: <span id="vidas">3</span></p>
 </section>
 
 <script>
 let pontos = 0;
+let vidas = 3;
 
-function ganharPonto(){
-  pontos++;
-  document.getElementById("pontos").innerText = pontos;
+function updateUI(){
+ document.getElementById("pontos").innerText = pontos;
+ document.getElementById("vidas").innerText = vidas;
 }
 
-function resposta1(correto){
-  if(correto){
-    document.getElementById("r1").innerText = "Acertou 😎";
-    ganharPonto();
-  } else {
-    document.getElementById("r1").innerText = "Errou 😢";
-  }
+function acertou(id){
+ document.getElementById(id).innerText = "Acertou 😎";
+ pontos++;
+ updateUI();
 }
 
-function verificar2(){
-  let resposta = document.getElementById("input2").value.toLowerCase();
-  if(resposta === "int"){
-    document.getElementById("r2").innerText = "Boa 😎";
-    ganharPonto();
-  } else {
-    document.getElementById("r2").innerText = "Tenta de novo 😅";
-  }
+function errou(id){
+ document.getElementById(id).innerText = "Errou 💀";
+ vidas--;
+ updateUI();
+ if(vidas <= 0){
+  alert("Game Over 😢");
+ }
 }
 
-function resposta3(correto){
-  if(correto){
-    document.getElementById("r3").innerText = "Brabo 😎";
-    ganharPonto();
-  } else {
-    document.getElementById("r3").innerText = "Errou 💀";
-  }
+function check(correto, id){
+ if(correto) acertou(id);
+ else errou(id);
+}
+
+function inputCheck(inputId, resposta, id){
+ let val = document.getElementById(inputId).value.toLowerCase();
+ if(val == resposta){
+  acertou(id);
+ } else {
+  errou(id);
+ }
 }
 </script>
 
